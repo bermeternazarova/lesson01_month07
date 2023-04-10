@@ -8,7 +8,7 @@ interface NoteDao {
     @Insert
     suspend fun createNote(noteEntity: NoteEntity)
 
-    @Query("SELECT * FROM notes ")
+    @Query("SELECT * FROM NoteEntity")
     suspend fun getAllNotes(): List<NoteEntity>
 
     @Update
