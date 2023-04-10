@@ -8,5 +8,5 @@ fun NOte.toEntity() = NoteEntity(
 )
 
 fun NoteEntity.toNOte() = NOte(
-    id, title, desc
+    id,title,desc
 )

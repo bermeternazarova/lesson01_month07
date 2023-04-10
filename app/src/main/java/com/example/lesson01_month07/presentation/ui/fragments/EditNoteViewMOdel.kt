@@ -1,12 +1,11 @@
 package com.example.lesson01_month07.presentation.ui.fragments
 
-
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.lesson01_month07.domain.model.NOte
-import com.example.lesson01_month07.domain.usecase.DeleteNoteUseCase
-import com.example.lesson01_month07.domain.usecase.GetAllNotesUseCase
+import com.example.lesson01_month07.domain.usecase.CreateNoteUseCase
+import com.example.lesson01_month07.domain.usecase.EditNoteUseCase
 import com.example.lesson01_month07.domain.utils.Resource
 import com.example.lesson01_month07.presentation.utils.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,51 +16,51 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class NotesViewModel  @Inject constructor(
-    private val getAllNOteUseCase:GetAllNotesUseCase,
-    private val deleteAllNotesUseCase: DeleteNoteUseCase
-): ViewModel() {
+class EditNoteViewMOdel @Inject constructor(
+    private val createNoteUseCase: CreateNoteUseCase,
+    private val editNoteUseCase: EditNoteUseCase,
+):ViewModel() {
+    private val _createNoteState = MutableStateFlow<UIState<Unit>>(UIState.Empty())
+    val createNoteState = _createNoteState.asStateFlow()
 
-    private val _getAllNOtesState = MutableStateFlow<UIState<List<NOte>>>(UIState.Empty())
-    val getAllNOtesState =_getAllNOtesState.asStateFlow()
-
-    private val _deleteNote = MutableStateFlow<UIState<Unit>>(UIState.Empty())
-    val deleteNoteState =_deleteNote
+    private val _editNoteState = MutableStateFlow<UIState<Unit>>(UIState.Empty())
+    val editNoteState = _editNoteState.asStateFlow()
 
     val loading = MutableLiveData<Boolean>()
 
-    fun getAllNOtes(){
+    fun addNote(note: NOte) {
         viewModelScope.launch {
-            getAllNOteUseCase.getaAllNotes().collect{
+            createNoteUseCase.createNOte(note).collect{
                 when(it){
                     is Resource.Error -> {
-                        _getAllNOtesState.value=UIState.Error(it.message!!)
+                        _createNoteState.value=UIState.Error(it.message!!)
                     }
                     is Resource.Loading -> {
-                        _getAllNOtesState.value=UIState.Loading()
+                        _createNoteState.value=UIState.Loading()
                     }
                     is Resource.Success -> {
                         if (it.data!=null){
-                            _getAllNOtesState.value= UIState.Success(it.data)
+                            _createNoteState.value= UIState.Success(it.data)
                         }
                     }
                 }
             }
         }
     }
-    fun deleteNote(nOte: NOte){
+
+    fun editNote(note: NOte){
         viewModelScope.launch {
-            deleteAllNotesUseCase.deleteNOte(nOte).collect{
+            editNoteUseCase.editNOte(note).collect{
                 when(it){
                     is Resource.Error -> {
-                        _deleteNote.value=UIState.Error(it.message.toString())
+                        _editNoteState.value=UIState.Error(it.message!!)
                     }
                     is Resource.Loading -> {
-                        _deleteNote.value=UIState.Loading()
+                        _editNoteState.value=UIState.Loading()
                     }
                     is Resource.Success -> {
                         if (it.data!=null){
-                            _deleteNote.value=UIState.Success(it.data)
+                            _editNoteState.value= UIState.Success(it.data)
                         }
                     }
                 }

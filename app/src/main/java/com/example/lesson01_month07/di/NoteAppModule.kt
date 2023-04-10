@@ -19,16 +19,16 @@ object NoteAppModule {
 
     @Provides
     @Singleton
+        fun provideRoomNoteDataBase(@ApplicationContext context: Context):NoteDataBase =
+        Room.databaseBuilder(context, NoteDataBase::class.java,"notes").build()
+
+
 //    fun provideRoomNoteDataBase(@ApplicationContext context: Context) = Room.databaseBuilder(
 //        context, NoteDataBase::class.java, "notes"
 //    )
-    fun provideRoomNoteDataBase(@ApplicationContext context: Context):NoteDataBase =
-        Room.databaseBuilder(context, NoteDataBase::class.java,"notes").allowMainThreadQueries().build()
-
-
 
     @Provides
-    fun provideNoteDao(noteDataBase: NoteDataBase) = noteDataBase.doNoteDataBase()
+    fun provideNoteDao(noteDataBase: NoteDataBase) = noteDataBase.doNoteDao()
 
 
     @Provides

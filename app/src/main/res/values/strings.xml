@@ -7,4 +7,9 @@
     <string name="send">send</string>
     <string name="enter_title">enter title</string>
     <string name="enter_description">enter description</string>
+    <string name="edit">Edit</string>
+    <string name="full">Заполните полностью</string>
+    <string name="delete">Вы точно хотите удалить?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
 </resources>
