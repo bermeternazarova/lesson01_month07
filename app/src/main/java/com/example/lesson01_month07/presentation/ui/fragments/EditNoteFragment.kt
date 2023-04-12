@@ -1,27 +1,22 @@
 package com.example.lesson01_month07.presentation.ui.fragments
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.lesson01_month07.R
 import com.example.lesson01_month07.databinding.FragmentEditNoteBinding
 import com.example.lesson01_month07.domain.model.NOte
 import com.example.lesson01_month07.domain.usecase.CreateNoteUseCase
+import com.example.lesson01_month07.presentation.ui.base.BaseFragment
+import com.example.lesson01_month07.presentation.ui.fragments.NoteFragment.Companion.UPDATE
 import com.example.lesson01_month07.presentation.utils.UIState
 import com.example.lesson01_month07.presentation.utils.showToast
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class EditNoteFragment : Fragment(R.layout.fragment_edit_note) {
+class EditNoteFragment :BaseFragment(R.layout.fragment_edit_note) {
 
     private val binding by viewBinding(FragmentEditNoteBinding::bind)
 
@@ -31,44 +26,35 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note) {
     private lateinit var note: NOte
     private var noteIsNull = true
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initialize()
-        setupRequest()
-        setArguments()
-        setupSubscriber()
+    override fun setUPSubscriber() {
+        super.setUPSubscriber()
+        viewModel.editNoteState.collectUiState(
+            state = {
+                binding.progressBar.isVisible = it is UIState.Loading
+            },
+            onSuccess = {
+                viewModel.loading.postValue(false)
+            }
+        )
+        viewModel.createNoteState.collectUiState(
+            state = {
+                binding.progressBar.isVisible = it is UIState.Loading
+            },
+            onSuccess = {
+                viewModel.loading.postValue(false)
+            }
+        )
     }
 
-    private fun setupRequest() {
+    override fun setUpRequest() {
+        super.setUpRequest()
         viewModel.loading.observe(viewLifecycleOwner){
             binding.progressBar.isVisible=it
         }
     }
 
-    private fun setupSubscriber() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.createNoteState.collect {
-                    when (it) {
-                        is UIState.Empty -> {}
-                        is UIState.Error -> {
-                            viewModel.loading.postValue(true)
-                            showToast(it.message)
-                        }
-                        is UIState.Loading -> {
-                            viewModel.loading.postValue(true)
-                        }
-                        is UIState.Success -> {
-                            viewModel.loading.postValue(false)
-                            findNavController().navigateUp()
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun setArguments() {
+    override fun setArguments() {
+        super.setArguments()
         binding.sendBtn.setOnClickListener {
             if (arguments != null) {
                 updateNote(note)
@@ -100,7 +86,8 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note) {
         viewModel.editNote(note)
     }
 
-    private fun initialize() {
+    override fun initialize() {
+        super.initialize()
         if (arguments != null) {
             note = arguments?.getSerializable(UPDATE) as NOte
             binding.etTitle.setText(note.title)
@@ -110,7 +97,4 @@ class EditNoteFragment : Fragment(R.layout.fragment_edit_note) {
         }
     }
 
-    companion object {
-        const val UPDATE = "ksdsfdjflskpo"
-    }
 }

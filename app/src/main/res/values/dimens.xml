@@ -3,4 +3,15 @@
     <dimen name="scale_16p">16sp</dimen>
     <dimen name="scale20_p">20sp</dimen>
     <dimen name="device_10p">10dp</dimen>
+    <dimen name="device15_p">15dp</dimen>
+    <dimen name="device120_p">120dp</dimen>
+    <dimen name="device70_p">70dp</dimen>
+    <dimen name="device30_p">30dp</dimen>
+    <dimen name="device60_p">60dp</dimen>
+    <dimen name="device50_p">50dp</dimen>
+    <dimen name="device20_p">20dp</dimen>
+    <dimen name="device40_p">40dp</dimen>
+    <dimen name="scale15_p">15sp</dimen>
+    <dimen name="device1_p">1dp</dimen>
+    <dimen name="device5_p">5dp</dimen>
 </resources>

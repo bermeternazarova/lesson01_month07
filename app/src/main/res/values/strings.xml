@@ -12,4 +12,5 @@
     <string name="delete">Вы точно хотите удалить?</string>
     <string name="yes">Да</string>
     <string name="no">Нет</string>
+    <string name="go">Go</string>
 </resources>

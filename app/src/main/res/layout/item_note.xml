@@ -23,8 +23,8 @@
         android:textSize="@dimen/scale_16p" />
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="@dimen/device1_p"
         android:background="@color/yellow"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="@dimen/device5_p"/>
 
 </LinearLayout>
