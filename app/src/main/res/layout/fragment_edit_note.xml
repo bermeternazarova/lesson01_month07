@@ -37,7 +37,7 @@
         android:layout_gravity="end"
         android:layout_marginTop="@dimen/device20_p"
         android:layout_marginEnd="@dimen/device40_p"
-        android:background="@color/yellow"
+        android:background="@drawable/btn_style"
         android:text="@string/send"
         android:textSize="@dimen/scale15_p" />
 
