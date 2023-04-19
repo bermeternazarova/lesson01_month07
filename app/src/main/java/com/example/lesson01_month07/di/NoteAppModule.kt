@@ -1,7 +1,7 @@
 package com.example.lesson01_month07.di
 
 import android.content.Context
-import androidx.room.Room
+import androidx.room.Room.databaseBuilder
 import com.example.lesson01_month07.data.model.NoteDao
 import com.example.lesson01_month07.data.model.NoteDataBase
 import com.example.lesson01_month07.data.repository.NoteRepositoryImpl
@@ -19,8 +19,8 @@ object NoteAppModule {
 
     @Provides
     @Singleton
-        fun provideRoomNoteDataBase(@ApplicationContext context: Context):NoteDataBase =
-        Room.databaseBuilder(context, NoteDataBase::class.java,"notes").build()
+        fun provideRoomNoteDataBase(@ApplicationContext context: Context): NoteDataBase =
+        databaseBuilder(context, NoteDataBase::class.java,"notes").build()
 
 
 //    fun provideRoomNoteDataBase(@ApplicationContext context: Context) = Room.databaseBuilder(
@@ -28,9 +28,10 @@ object NoteAppModule {
 //    )
 
     @Provides
-    fun provideNoteDao(noteDataBase: NoteDataBase) = noteDataBase.doNoteDao()
+    fun provideNoteDao(noteDataBase:NoteDataBase) = noteDataBase.doNoteDao()
 
 
     @Provides
-    fun provideNOteRepository(noteDao: NoteDao): NoteRepository = NoteRepositoryImpl(noteDao)
+    fun provideNOteRepository(noteDao:NoteDao): NoteRepository =
+        NoteRepositoryImpl(noteDao)
 }

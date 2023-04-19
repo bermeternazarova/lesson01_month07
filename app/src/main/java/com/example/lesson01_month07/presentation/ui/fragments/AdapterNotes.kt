@@ -10,7 +10,7 @@ import com.example.lesson01_month07.databinding.ItemNoteBinding
 import com.example.lesson01_month07.domain.model.NOte
 
 class AdapterNotes(private val click:(NOte)->Unit,
-private val onLongClick:(NOte)->Unit)
+                   private val onLongClick:(NOte)->Unit)
     :ListAdapter<NOte,AdapterNotes.ViewHolderNotes>(
     DFUtilCallBack()
     ){

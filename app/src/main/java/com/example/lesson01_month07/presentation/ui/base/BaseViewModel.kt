@@ -22,7 +22,7 @@ open class BaseViewModel:ViewModel() {
                     }
                     is Resource.Success -> {
                         if (it.data!=null){
-                            _state.value= UIState.Success(it.data)
+                            _state.value= UIState.Success(it.data!!)
                         }
                     }
                 }

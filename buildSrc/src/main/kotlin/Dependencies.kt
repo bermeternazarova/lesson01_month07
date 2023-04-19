@@ -18,7 +18,8 @@ object Room {
     const val room = "androidx.room:room-ktx:${Versions.room}"
 }
 object Coroutines{
-    const val coroutines ="org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
+    const val coroutinesCore = "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coreCoroutines}"
+const val android  ="org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 }
 object DaggerHilt{
     const val android = "com.google.dagger:hilt-android:${Versions.hilt}"
@@ -38,6 +39,12 @@ object Bom{
 object ViewBindingPropertyDelegate{
     const val noReflection ="com.github.kirich1409:viewbindingpropertydelegate-noreflection:${Versions.noReflection}"
 }
+object Javax{
+    const val javax = "javax.inject:javax.inject:1"
+}
+object Java{
+    const val javaLibrary ="java-library"
+}
 
 object Plugins {
     object AGP {
@@ -48,6 +55,7 @@ object Plugins {
     object Kotlin {
         const val android = "org.jetbrains.kotlin.android"
         const val kapt = "kotlin-kapt"
+        const val jvm ="org.jetbrains.kotlin.jvm"
     }
 
     object DaggerHilt {
@@ -55,6 +63,7 @@ object Plugins {
     }
 }
 object Versions {
+    const val coreCoroutines = "1.6.4"
     const val AGP = "7.3.1"
     const val android = "1.8.0"
     const val hilt = "2.44"

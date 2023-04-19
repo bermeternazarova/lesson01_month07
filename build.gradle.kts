@@ -4,4 +4,5 @@ plugins {
     id (Plugins.AGP.library) version Versions.AGP apply false
     id (Plugins.Kotlin.android) version Versions.android apply false
     id (Plugins.DaggerHilt.hilt) version Versions.hilt apply false
+    id("org.jetbrains.kotlin.jvm") version "1.7.20" apply false
 }

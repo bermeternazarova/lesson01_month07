@@ -1,9 +1,9 @@
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("com.google.dagger.hilt.android")
+    id(Plugins.AGP.application)
+    id(Plugins.Kotlin.android)
+    id(Plugins.Kotlin.kapt)
+    id(Plugins.DaggerHilt.hilt)
 }
 
 android {
@@ -11,7 +11,7 @@ android {
     compileSdk = AndroidConfig.compileSdk
 
     defaultConfig {
-        applicationId "com.example.lesson01_month07"
+        applicationId = "com.example.lesson01_month07"
         minSdk = AndroidConfig.minSdk
         targetSdk = AndroidConfig.targetSdk
         versionCode = AndroidConfig.versionCode
@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         getByName("release"){
-            minifyEnabled = false
+            isMinifyEnabled = false
             proguardFiles (
                     getDefaultProguardFile("proguard-android-optimize.txt"),
                     "proguard-rules.pro"
@@ -46,8 +46,11 @@ android {
     }
 }
 
+
 dependencies {
-     implementation(UI.core)
+    implementation(project(":dataModule"))
+    implementation(project(":domainModule"))
+    implementation(UI.core)
     implementation(UI.appcompat)
     implementation(UI.material)
     implementation(UI.constraintLayout)
@@ -60,7 +63,7 @@ dependencies {
     kapt(Room.compiler)
     implementation(Room.room)
 
-    implementation(Coroutines.coroutines)
+    implementation(Coroutines.android)
 
     implementation(DaggerHilt.android)
     kapt(DaggerHilt.compiler)
